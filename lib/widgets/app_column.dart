@@ -8,6 +8,7 @@ import 'icon_and_text.dart';
 
 class AppColumn extends StatelessWidget {
   final String text;
+
   const AppColumn({Key? key, required this.text}) : super(key: key);
 
   @override
@@ -15,7 +16,10 @@ class AppColumn extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        BigText(text: text, size: Dimensions.font26,),
+        BigText(
+          text: text,
+          size: Dimensions.font26,
+        ),
         SizedBox(
           height: Dimensions.height10,
         ),
@@ -24,11 +28,11 @@ class AppColumn extends StatelessWidget {
             Wrap(
               children: List.generate(
                   5,
-                      (index) => Icon(
-                    Icons.star,
-                    color: AppColors.mainColor,
-                    size: 15,
-                  )),
+                  (index) => const Icon(
+                        Icons.star,
+                        color: AppColors.mainColor,
+                        size: 15,
+                      )),
             ),
             SizedBox(width: Dimensions.width10),
             SmallText(text: '4.5'),
@@ -41,7 +45,7 @@ class AppColumn extends StatelessWidget {
         SizedBox(height: Dimensions.height20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: const [
             IconAndTextWidget(
                 icon: Icons.circle_sharp,
                 text: 'Normal',

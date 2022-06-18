@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:my_e_com/data/repository/popular_product_repo.dart';
 import 'package:my_e_com/data/repository/recommended_product_rapo.dart';
 
 import '../model/popular_products.dart';
@@ -10,7 +9,6 @@ class RecommendedProductController extends GetxController {
   RecommendedProductController({required this.recommendedProductRepo});
 
   List<dynamic> _recommendedProductList = [];
-
   List<dynamic> get recommendedProductList => _recommendedProductList;
 
   bool _isLoaded = false;

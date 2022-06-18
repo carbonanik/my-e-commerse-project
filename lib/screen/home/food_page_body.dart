@@ -11,6 +11,7 @@ import 'package:my_e_com/widgets/big_text.dart';
 import 'package:my_e_com/widgets/icon_and_text.dart';
 import 'package:my_e_com/widgets/small_text.dart';
 
+import '../../utils/constants.dart';
 import '../../utils/dimensions.dart';
 
 class FoodPageBody extends StatefulWidget {
@@ -21,6 +22,7 @@ class FoodPageBody extends StatefulWidget {
 }
 
 class _FoodPageBodyState extends State<FoodPageBody> {
+
   PageController pageController = PageController(viewportFraction: 0.9);
   var _currentPageValue = 0.00;
   final double _scaleFactor = 0.8;
@@ -39,6 +41,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   @override
   void dispose() {
     pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -117,15 +120,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
         // recommended food and image list
-        GetBuilder<RecommendedProductController>(builder: (recommendedProduct) {
-          return recommendedProduct.isLoaded
+        GetBuilder<RecommendedProductController>(builder: (controller) {
+
+          return controller.isLoaded
               ? ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: recommendedProduct.recommendedProductList.length,
+                  itemCount: controller.recommendedProductList.length,
                   itemBuilder: (context, index) {
                     return _buildRecommendedListItem(index,
-                        recommendedProduct.recommendedProductList[index]);
+                        controller.recommendedProductList[index]);
                   })
               : CircularProgressIndicator(
                   color: AppColors.mainColor,
@@ -147,7 +151,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         children: [
           GestureDetector(
             onTap: () {
-              Get.toNamed(RouteHelper.getPopularFood(index));
+              Get.toNamed(RouteHelper.getPopularFood(popularProduct.id!));
             },
             child: Container(
               height: Dimensions.pageViewContainer,
@@ -158,15 +162,16 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   color: index.isEven
                       ? const Color(0xff89dad0)
                       : const Color(0xffffd28d),
-                  image: const DecorationImage(
-                      image: AssetImage(//todo network image alter backend build
-                          'assets/images/iso-republic-fruit-plate.jpg'),
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          "${AppConstants.IMAGE_BASE_URL}${popularProduct.img}"
+                      ),
                       fit: BoxFit.cover)),
             ),
           ),
           GestureDetector(
             onTap: () {
-              Get.toNamed(RouteHelper.getPopularFood(index));
+              Get.toNamed(RouteHelper.getPopularFood(popularProduct.id!));
             },
             child: Align(
               alignment: Alignment.bottomCenter,
@@ -216,7 +221,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   ) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(RouteHelper.getRecommendedFood(index));
+        Get.toNamed(RouteHelper.getRecommendedFood(product.id!));
       },
       child: Container(
         margin: EdgeInsets.only(
@@ -233,8 +238,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   borderRadius: BorderRadius.circular(Dimensions.radius20),
                   color: Colors.white38,
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(// todo network image
-                          'assets/images/isorepublic-prawns-1.jpg'))),
+                      fit: BoxFit.cover, image: NetworkImage(
+                      "${AppConstants.IMAGE_BASE_URL}${product.img}"
+                  ))),
             ),
             // text container
             Expanded(
