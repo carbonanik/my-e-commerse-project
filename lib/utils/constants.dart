@@ -8,10 +8,12 @@ class AppConstants{
   static const int APP_VERSION = 1;
 
   static const String BASE_URL = "https://mighty-crag-04913.herokuapp.com";
-  static String IMAGE_BASE_URL = "$BASE_URL/";
+  static const String IMAGE_BASE_URL = "$BASE_URL/";
   static const String POPULAR_PRODUCT_URI = "/api/product/popular";
   static const String RECOMMENDED_PRODUCT_URI = "/api/product/recommended";
   // static const String UPLOAD_URI = "/upload";
+
+  static const String REGISTRATION_URI = "/api/auth/registration";
 
   static const String TOKEN = "DBToken";
 

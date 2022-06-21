@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_e_com/base/no_data_page.dart';
 import 'package:my_e_com/colors.dart';
 import 'package:my_e_com/controller/cart_controller.dart';
 import 'package:my_e_com/controller/popular_product_controller.dart';
@@ -60,30 +61,32 @@ class CartPage extends StatelessWidget {
                 ],
               )),
           // cart item list
-          Positioned(
-              top: Dimensions.height20 * 5,
-              left: Dimensions.width20,
-              right: Dimensions.width20,
-              bottom: 0,
-              child: Container(
-                margin: EdgeInsets.only(top: Dimensions.height15),
-                child: MediaQuery.removePadding(
-                  context: context,
-                  removeTop: true,
-                  child: GetBuilder<CartController>(
-                    builder: (controller) {
-                      var cartList = controller.getItems;
-                      // cart items
-                      return ListView.builder(
-                          itemCount: cartList.length,
-                          itemBuilder: (_, index) {
-                            var cartItem = cartList[index];
-                            return _listItem(cartItem, controller);
-                          });
-                    },
+          GetBuilder<CartController>(builder: (_cartController){
+            return _cartController.getItems.length > 0 ? Positioned(
+                top: Dimensions.height20 * 5,
+                left: Dimensions.width20,
+                right: Dimensions.width20,
+                bottom: 0,
+                child: Container(
+                  margin: EdgeInsets.only(top: Dimensions.height15),
+                  child: MediaQuery.removePadding(
+                    context: context,
+                    removeTop: true,
+                    child: GetBuilder<CartController>(
+                      builder: (controller) {
+                        var cartList = controller.getItems;
+                        // cart items
+                        return ListView.builder(
+                            itemCount: cartList.length,
+                            itemBuilder: (_, index) {
+                              var cartItem = cartList[index];
+                              return _listItem(cartItem, controller);
+                            });
+                      },
+                    ),
                   ),
-                ),
-              ))
+                )) : NoDataPage(text: "Your cart is empty!");
+          })
         ],
       ),
       bottomNavigationBar: GetBuilder<CartController>(
@@ -100,10 +103,10 @@ class CartPage extends StatelessWidget {
                     topLeft: Radius.circular(Dimensions.radius20 * 2),
                     topRight: Radius.circular(Dimensions.radius20 * 2)),
                 color: AppColors.buttonBackgroundColor),
-            child: Row(
+            child: controller.getItems.isNotEmpty ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // total price
+                /// total price
                 Container(
                   padding: EdgeInsets.only(
                       top: Dimensions.height20,
@@ -125,7 +128,7 @@ class CartPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                // check out button
+                /// check out button
                 GestureDetector(
                   onTap: () {
                     // popularProduct.addItem(product);
@@ -139,7 +142,7 @@ class CartPage extends StatelessWidget {
                         right: Dimensions.width20),
                     decoration: BoxDecoration(
                         borderRadius:
-                            BorderRadius.circular(Dimensions.radius20),
+                        BorderRadius.circular(Dimensions.radius20),
                         color: AppColors.mainColor),
                     child: BigText(
                       text: 'Check Out',
@@ -148,7 +151,7 @@ class CartPage extends StatelessWidget {
                   ),
                 )
               ],
-            ),
+            ) : Container(),
           );
         },
       ),

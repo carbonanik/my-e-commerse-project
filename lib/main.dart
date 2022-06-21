@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_e_com/routes/route_helper.dart';
+import 'package:my_e_com/screen/auth/sign_in_page.dart';
+import 'package:my_e_com/screen/auth/sign_up_page.dart';
 import 'controller/cart_controller.dart';
 import 'controller/popular_product_controller.dart';
 import 'controller/recommended_product_controller.dart';
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      // home: MainFoodPage(),
+      // home: SignInPage(),
       initialRoute: RouteHelper.getSplashPage(),
       getPages: RouteHelper.routes,
     );

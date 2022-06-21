@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:my_e_com/colors.dart';
+import 'package:my_e_com/screen/account/account_page.dart';
+import 'package:my_e_com/screen/auth/sign_up_page.dart';
 import 'package:my_e_com/screen/cart/cart_history.dart';
 import 'package:my_e_com/screen/cart/cart_page.dart';
 import 'package:my_e_com/screen/home/main_food_page.dart';
@@ -16,12 +18,10 @@ class _HomePageState extends State<HomePage> {
   int _selectedPage = 0;
 
   List page = [
-    const MainFoodPage(),
+    const MainFoodPage(),//todo
     const CartPage(),
     const CartHistory(),
-    const Center(
-      child: Text("Next Next Next Page"),
-    )
+    const AccountPage()
   ];
 
   List<BottomNavigationBarItem> item = [
